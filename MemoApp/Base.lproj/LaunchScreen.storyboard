@@ -12,40 +12,56 @@
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="memoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="jDM-fd-Pjj">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dUZ-7g-4xa">
+                                <rect key="frame" x="0.0" y="224" width="414" height="49"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다시 기억나는 메모" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNS-6f-1Qf">
+                                        <rect key="frame" x="144" y="0.0" width="126.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEMO:RE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPE-Nn-hqY">
+                                        <rect key="frame" x="167" y="28.5" width="80.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="memoBackImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="JYG-pG-ecu">
+                                <rect key="frame" x="0.0" y="293" width="414" height="310.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="JYG-pG-ecu" secondAttribute="height" multiplier="4:3" id="7Wb-m9-paN"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEMO:RE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8s9-i6-Ocr">
-                                <rect key="frame" x="169" y="164" width="76.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="jDM-fd-Pjj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0bo-dM-xGu"/>
-                            <constraint firstItem="8s9-i6-Ocr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2PH-il-kn6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jDM-fd-Pjj" secondAttribute="bottom" id="HDH-eG-KfT"/>
-                            <constraint firstItem="jDM-fd-Pjj" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bgz-x2-Mli"/>
-                            <constraint firstItem="8s9-i6-Ocr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="120" id="tlS-pM-abR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jDM-fd-Pjj" secondAttribute="trailing" id="upe-nG-jGv"/>
+                            <constraint firstItem="JYG-pG-ecu" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="RQd-OC-Bbj"/>
+                            <constraint firstItem="JYG-pG-ecu" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="U1m-lK-tys"/>
+                            <constraint firstItem="dUZ-7g-4xa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XzF-RI-Teh"/>
+                            <constraint firstItem="JYG-pG-ecu" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bUm-C7-tnG"/>
+                            <constraint firstItem="dUZ-7g-4xa" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dX4-hX-8Dy"/>
+                            <constraint firstItem="JYG-pG-ecu" firstAttribute="top" secondItem="dUZ-7g-4xa" secondAttribute="bottom" constant="20" id="hxp-1e-gZL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUZ-7g-4xa" secondAttribute="trailing" id="qj3-2Y-LYf"/>
+                            <constraint firstItem="JYG-pG-ecu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uAe-3A-hJi"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="memoBackground" width="1666.5" height="1250"/>
+        <image name="memoBackImage.png" width="1216" height="912"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
