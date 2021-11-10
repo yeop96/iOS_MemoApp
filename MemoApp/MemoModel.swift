@@ -12,16 +12,18 @@ import RealmSwift // 10.18.0 exact version
 
 class MemoList: Object {
     @Persisted var memoTitle: String
-    @Persisted var memoContent: String
+    @Persisted var memoContent: String?
+    @Persisted var memoAll: String
     @Persisted var favorite: Bool
     @Persisted var regDate = Date()
     @Persisted(primaryKey: true) var _pk: ObjectId
     
-    convenience init(memoTitle: String, memoContent: String, favorite: Bool, regDate: Date) {
+    convenience init(memoTitle: String, memoContent: String, memoAll: String, favorite: Bool, regDate: Date) {
         self.init()
         
         self.memoTitle = memoTitle
         self.memoContent = memoContent
+        self.memoAll = memoAll
         self.favorite = favorite
         self.regDate = regDate
     }

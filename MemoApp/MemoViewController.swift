@@ -85,7 +85,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             return 5
         }
         else{
-            return 20
+            return tasks.count
         }
     }
     
@@ -136,9 +136,12 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         }
         else if indexPath.section == 1{
+            //let row = tasks[indexPath.row]
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell") as? MemoTableViewCell else{
                             return UITableViewCell()
                         }
+            
             if indexPath.row == 0{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner ])
             }
@@ -150,9 +153,19 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         }
         else{
+            let row = tasks[indexPath.row]
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell") as? MemoTableViewCell else{
                             return UITableViewCell()
                         }
+            
+            let format = DateFormatter()
+            format.dateFormat = "yyyy. MM. dd."
+            let regDate = format.string(from: row.regDate)
+
+            cell.memoTitleLabel.text = row.memoTitle
+            cell.memoDateLabel.text = regDate
+            cell.memoContentLabel.text = row.memoContent
             
             if indexPath.row == 0{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner ])
@@ -171,6 +184,18 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 47 : 37
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+        
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let row = tasks[indexPath.row]
+        try! localRealm.write{
+            localRealm.delete(row)
+            tableView.reloadData()
+        }
     }
     
 }

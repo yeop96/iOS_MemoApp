@@ -52,7 +52,7 @@ class WriteMemoViewController: UIViewController {
     
     @objc func saveButtonClicked(){
         var title = ""
-        
+        var content = ""
         //공백일 경우
         if memoTextView.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
             print("sadasd")
@@ -65,9 +65,10 @@ class WriteMemoViewController: UIViewController {
         // 개행 있을 경우
         else{
             title = String(memoTextView.text!.split(separator: "\n").first!) //첫번째 줄만
+            content = memoTextView.text // 제목 자르고 넣어야함 추후 수정
         }
         
-        let task = MemoList(memoTitle: title, memoContent: memoTextView.text, favorite: false, regDate: Date())
+        let task = MemoList(memoTitle: title, memoContent: content, memoAll: memoTextView.text, favorite: false, regDate: Date())
                     
         try! localRealm.write {
             localRealm.add(task)

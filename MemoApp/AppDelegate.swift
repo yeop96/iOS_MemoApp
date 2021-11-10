@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableViewCell.appearance().selectionStyle = .none
         
         IQKeyboardManager.shared.enable = true
-
+        
         return true
     }
 

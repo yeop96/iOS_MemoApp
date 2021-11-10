@@ -83,10 +83,10 @@
 				270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */,
 				279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */,
 				279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */,
+				270705F8273C2E9D00FFD844 /* MemoModel.swift */,
 				279D7CBE27396CB4005CA20F /* Assets.xcassets */,
 				279D7CC027396CB4005CA20F /* LaunchScreen.storyboard */,
 				279D7CC327396CB4005CA20F /* Info.plist */,
-				270705F8273C2E9D00FFD844 /* MemoModel.swift */,
 			);
 			path = MemoApp;
 			sourceTree = "<group>";
