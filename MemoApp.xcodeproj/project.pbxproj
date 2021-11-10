@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270705ED273C1A9500FFD844 /* WriteMemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270705EC273C1A9500FFD844 /* WriteMemo.storyboard */; };
+		270705EF273C1AB400FFD844 /* WriteMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */; };
 		279D7CB627396CB0005CA20F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CB527396CB0005CA20F /* AppDelegate.swift */; };
 		279D7CB827396CB0005CA20F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CB727396CB0005CA20F /* SceneDelegate.swift */; };
 		279D7CBA27396CB0005CA20F /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CB927396CB0005CA20F /* MemoViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270705EC273C1A9500FFD844 /* WriteMemo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WriteMemo.storyboard; sourceTree = "<group>"; };
+		270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMemoViewController.swift; sourceTree = "<group>"; };
 		279D7CB227396CB0005CA20F /* MemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		279D7CB527396CB0005CA20F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		279D7CB727396CB0005CA20F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,8 +69,10 @@
 				279D7CC927397ED0005CA20F /* memoBackImage.png */,
 				279D7CB527396CB0005CA20F /* AppDelegate.swift */,
 				279D7CB727396CB0005CA20F /* SceneDelegate.swift */,
-				279D7CB927396CB0005CA20F /* MemoViewController.swift */,
 				279D7CBB27396CB0005CA20F /* Memo.storyboard */,
+				279D7CB927396CB0005CA20F /* MemoViewController.swift */,
+				270705EC273C1A9500FFD844 /* WriteMemo.storyboard */,
+				270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */,
 				279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */,
 				279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */,
 				279D7CBE27396CB4005CA20F /* Assets.xcassets */,
@@ -137,6 +143,7 @@
 				279D7CC227396CB4005CA20F /* LaunchScreen.storyboard in Resources */,
 				279D7CBF27396CB4005CA20F /* Assets.xcassets in Resources */,
 				279D7CCA27397ED0005CA20F /* memoBackImage.png in Resources */,
+				270705ED273C1A9500FFD844 /* WriteMemo.storyboard in Resources */,
 				279D7CBD27396CB0005CA20F /* Memo.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +159,7 @@
 				279D7CB627396CB0005CA20F /* AppDelegate.swift in Sources */,
 				279D7CB827396CB0005CA20F /* SceneDelegate.swift in Sources */,
 				279D7CCE273ACDBE005CA20F /* UIView+Extension.swift in Sources */,
+				270705EF273C1AB400FFD844 /* WriteMemoViewController.swift in Sources */,
 				279D7CCC273AC7D4005CA20F /* CALayer+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
