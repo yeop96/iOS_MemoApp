@@ -14,6 +14,8 @@
 		279D7CBF27396CB4005CA20F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 279D7CBE27396CB4005CA20F /* Assets.xcassets */; };
 		279D7CC227396CB4005CA20F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 279D7CC027396CB4005CA20F /* LaunchScreen.storyboard */; };
 		279D7CCA27397ED0005CA20F /* memoBackImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 279D7CC927397ED0005CA20F /* memoBackImage.png */; };
+		279D7CCC273AC7D4005CA20F /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */; };
+		279D7CCE273ACDBE005CA20F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		279D7CC127396CB4005CA20F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		279D7CC327396CB4005CA20F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		279D7CC927397ED0005CA20F /* memoBackImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = memoBackImage.png; sourceTree = "<group>"; };
+		279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				279D7CB727396CB0005CA20F /* SceneDelegate.swift */,
 				279D7CB927396CB0005CA20F /* MemoViewController.swift */,
 				279D7CBB27396CB0005CA20F /* Memo.storyboard */,
+				279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */,
+				279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */,
 				279D7CBE27396CB4005CA20F /* Assets.xcassets */,
 				279D7CC027396CB4005CA20F /* LaunchScreen.storyboard */,
 				279D7CC327396CB4005CA20F /* Info.plist */,
@@ -145,6 +151,8 @@
 				279D7CBA27396CB0005CA20F /* MemoViewController.swift in Sources */,
 				279D7CB627396CB0005CA20F /* AppDelegate.swift in Sources */,
 				279D7CB827396CB0005CA20F /* SceneDelegate.swift in Sources */,
+				279D7CCE273ACDBE005CA20F /* UIView+Extension.swift in Sources */,
+				279D7CCC273AC7D4005CA20F /* CALayer+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

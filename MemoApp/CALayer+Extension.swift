@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 extension CALayer {
+    
+    //원하는 곳에 구분선 주기
     func addBorder(_ arr_edge: [UIRectEdge], color: UIColor, width: CGFloat) {
         for edge in arr_edge {
             let border = CALayer()
