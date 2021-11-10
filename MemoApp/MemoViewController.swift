@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MemoViewController: UIViewController {
+    let localRealm = try! Realm()
+    var tasks: Results<MemoList>!
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -20,6 +24,13 @@ class MemoViewController: UIViewController {
         let backBarButtonItem = UIBarButtonItem(title: "메모", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .systemOrange
         self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+        //memo 데이터 가져오기
+        tasks = localRealm.objects(MemoList.self).sorted(byKeyPath: "regDate", ascending: false) // 최근 등록일 순
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     func toolbarSetting(){
