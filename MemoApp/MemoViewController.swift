@@ -18,7 +18,7 @@ class MemoViewController: UIViewController {
         toolbarSetting()
         
         let backBarButtonItem = UIBarButtonItem(title: "메모", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .orange
+        backBarButtonItem.tintColor = .systemOrange
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
