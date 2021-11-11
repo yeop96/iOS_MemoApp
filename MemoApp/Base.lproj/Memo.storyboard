@@ -18,28 +18,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-ii-WGf">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderTableViewCell" rowHeight="68" id="qbo-dn-jXj" customClass="HeaderTableViewCell" customModule="MemoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="414" height="68"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="374" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qbo-dn-jXj" id="VD1-tH-vav">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="68"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="헤더제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSK-h9-Pj7">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="68"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="68"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="MSK-h9-Pj7" firstAttribute="leading" secondItem="VD1-tH-vav" secondAttribute="leading" constant="20" id="4VF-Pq-sEu"/>
+                                                <constraint firstItem="MSK-h9-Pj7" firstAttribute="leading" secondItem="VD1-tH-vav" secondAttribute="leading" id="4VF-Pq-sEu"/>
                                                 <constraint firstItem="MSK-h9-Pj7" firstAttribute="top" secondItem="VD1-tH-vav" secondAttribute="top" id="CF3-Lx-CRz"/>
-                                                <constraint firstAttribute="trailing" secondItem="MSK-h9-Pj7" secondAttribute="trailing" constant="20" id="QfU-Jm-QA8"/>
+                                                <constraint firstAttribute="trailing" secondItem="MSK-h9-Pj7" secondAttribute="trailing" id="QfU-Jm-QA8"/>
                                                 <constraint firstAttribute="bottom" secondItem="MSK-h9-Pj7" secondAttribute="bottom" id="tvs-ah-46h"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -48,22 +48,22 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchTableViewCell" rowHeight="110" id="HU3-XV-WMU" customClass="SearchTableViewCell" customModule="MemoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="117.5" width="414" height="110"/>
+                                        <rect key="frame" x="0.0" y="117.5" width="374" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HU3-XV-WMU" id="gVs-mN-7e0">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <searchBar contentMode="redraw" placeholder="검색" translatesAutoresizingMaskIntoConstraints="NO" id="jCs-hR-iVZ">
-                                                    <rect key="frame" x="10" y="0.0" width="394" height="110"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="110"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </searchBar>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="jCs-hR-iVZ" secondAttribute="bottom" id="LAp-PA-yM0"/>
-                                                <constraint firstAttribute="trailing" secondItem="jCs-hR-iVZ" secondAttribute="trailing" constant="10" id="XmR-Ja-fqb"/>
-                                                <constraint firstItem="jCs-hR-iVZ" firstAttribute="leading" secondItem="gVs-mN-7e0" secondAttribute="leading" constant="10" id="em3-7Y-Zea"/>
+                                                <constraint firstAttribute="trailing" secondItem="jCs-hR-iVZ" secondAttribute="trailing" id="XmR-Ja-fqb"/>
+                                                <constraint firstItem="jCs-hR-iVZ" firstAttribute="leading" secondItem="gVs-mN-7e0" secondAttribute="leading" id="em3-7Y-Zea"/>
                                                 <constraint firstItem="jCs-hR-iVZ" firstAttribute="top" secondItem="gVs-mN-7e0" secondAttribute="top" id="ipe-zZ-kIV"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -73,14 +73,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemoTableViewCell" rowHeight="117" id="f6O-M8-ikf" customClass="MemoTableViewCell" customModule="MemoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="227.5" width="414" height="117"/>
+                                        <rect key="frame" x="0.0" y="227.5" width="374" height="117"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f6O-M8-ikf" id="KlT-dR-MFx">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="117"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YRh-15-2UG">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="117"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="117"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="722-w5-2Hp">
                                                             <rect key="frame" x="18" y="8" width="348" height="64"/>
@@ -123,9 +123,9 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="YRh-15-2UG" firstAttribute="top" secondItem="KlT-dR-MFx" secondAttribute="top" id="0t3-e3-RZO"/>
-                                                <constraint firstItem="YRh-15-2UG" firstAttribute="leading" secondItem="KlT-dR-MFx" secondAttribute="leading" constant="20" id="QhK-9b-yYd"/>
+                                                <constraint firstItem="YRh-15-2UG" firstAttribute="leading" secondItem="KlT-dR-MFx" secondAttribute="leading" id="QhK-9b-yYd"/>
                                                 <constraint firstAttribute="bottom" secondItem="YRh-15-2UG" secondAttribute="bottom" id="ZL4-Vp-ByY"/>
-                                                <constraint firstAttribute="trailing" secondItem="YRh-15-2UG" secondAttribute="trailing" constant="20" id="uSj-Sf-hHO"/>
+                                                <constraint firstAttribute="trailing" secondItem="YRh-15-2UG" secondAttribute="trailing" id="uSj-Sf-hHO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
@@ -142,10 +142,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hmf-ii-WGf" secondAttribute="trailing" id="557-on-HSq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hmf-ii-WGf" secondAttribute="trailing" constant="20" id="557-on-HSq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hmf-ii-WGf" secondAttribute="bottom" id="5x4-Gl-uYi"/>
                             <constraint firstItem="hmf-ii-WGf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8YF-xz-JUZ"/>
-                            <constraint firstItem="hmf-ii-WGf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GaS-Yu-COd"/>
+                            <constraint firstItem="hmf-ii-WGf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="GaS-Yu-COd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LqF-qQ-xeX"/>

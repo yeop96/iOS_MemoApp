@@ -37,6 +37,7 @@ class MemoViewController: UIViewController {
         tableView.reloadData()
     }
     
+    //밑에 툴바 만들기
     func toolbarSetting(){
         // warning을 막기 위해 임의로 위치와 크기를 잡아준다.
         let toolbar = UIToolbar(frame: .init(x: 0, y: 0, width: 100, height: 100))
@@ -64,6 +65,7 @@ class MemoViewController: UIViewController {
         
     }
     
+    // 메모 버튼 클릭시 메모 작성 화면으로
     @objc func writeMemoButtonClicked(){
         let storyboard = UIStoryboard(name: "WriteMemo", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "WriteMemoViewController") as! WriteMemoViewController
@@ -93,6 +95,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         }
     }
     
+    //헤더 제목
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
             let numberFormatter = NumberFormatter()
@@ -111,18 +114,6 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     
     //헤더뷰 설정
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let myLabel = UILabel()
-//
-//        myLabel.frame = section == 0 ? CGRect(x: 20, y: 18, width: UIScreen.main.bounds.width, height: 27) : CGRect(x: 20, y: -4, width: UIScreen.main.bounds.width, height: 37)
-//
-//        myLabel.font = section == 0 ?  UIFont.boldSystemFont(ofSize: 30) : UIFont.boldSystemFont(ofSize: 23)
-//
-//        myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-//
-//        let headerView = UIView()
-//        headerView.backgroundColor = .systemBackground
-//        headerView.addSubview(myLabel)
-//        tableView.addSubview(headerView)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderTableViewCell") as? HeaderTableViewCell else{
                         return UITableViewCell()
                     }
@@ -152,9 +143,31 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
                         }
             let format = DateFormatter()
             format.dateFormat = "yyyy. MM. dd. a hh:mm"
+            
+            //calendar
+            let calendarDate = Calendar.current
+            //월요일 구하기
+            var component = calendarDate.dateComponents([.weekOfYear, .yearForWeekOfYear, .weekday], from: Date())
+            component.weekday = 2
+            let mondayWeek = calendarDate.date(from: component)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyyMMdd"
+            formatter.locale = Locale(identifier:"ko_KR")
+            let tempRegDate = formatter.string(from: row.regDate)
+            
+            for i in 0...6{
+                let week = calendarDate.date(byAdding: .day , value: i, to: mondayWeek!)
+                let weekStr = formatter.string(from: week!)
+                
+                if tempRegDate == weekStr{
+                    format.dateFormat = "EEEE"
+                }
+            }
+            
             format.locale = Locale(identifier:"ko_KR")
             let regDate = format.string(from: row.regDate)
-
+            
             cell.memoTitleLabel.text = row.memoTitle
             cell.memoDateLabel.text = regDate
             cell.memoContentLabel.text = row.memoContent
@@ -181,9 +194,31 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             
             let format = DateFormatter()
             format.dateFormat = "yyyy. MM. dd. a hh:mm"
+            
+            //calendar
+            let calendarDate = Calendar.current
+            //월요일 구하기
+            var component = calendarDate.dateComponents([.weekOfYear, .yearForWeekOfYear, .weekday], from: Date())
+            component.weekday = 2
+            let mondayWeek = calendarDate.date(from: component)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyyMMdd"
+            formatter.locale = Locale(identifier:"ko_KR")
+            let tempRegDate = formatter.string(from: row.regDate)
+            
+            for i in 0...6{
+                let week = calendarDate.date(byAdding: .day , value: i, to: mondayWeek!)
+                let weekStr = formatter.string(from: week!)
+                
+                if tempRegDate == weekStr{
+                    format.dateFormat = "EEEE"
+                }
+            }
+            
             format.locale = Locale(identifier:"ko_KR")
             let regDate = format.string(from: row.regDate)
-
+            
             cell.memoTitleLabel.text = row.memoTitle
             cell.memoDateLabel.text = regDate
             cell.memoContentLabel.text = row.memoContent
@@ -203,29 +238,47 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         }
     }
     
+    //셀 높이
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 58 : 67
     }
+    //헤더 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 47 : 37
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return indexPath.section == 0 ? false : true
     }
     
     //삭제 스와이프
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         let row = localRealm.objects(MemoList.self)[indexPath.row]
-        try! localRealm.write{
-            localRealm.delete(row)
-            tableView.reloadData()
+        
+        let alert = UIAlertController(title: row.memoTitle, message: "메모를 삭제해도 되나요?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "예", style: .default){ (action) in
+            
+            try! self.localRealm.write{
+                self.localRealm.delete(row)
+                tableView.reloadData()
+            }
+            
+            return
         }
+        let noAction = UIAlertAction(title: "아니오", style: .cancel){ (action) in
+            return
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
+        
     }
     
     //즐겨찾기
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        //고정되어있는 섹션
         if indexPath.section == 1{
             let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
                 completionHaldler(true)
@@ -241,9 +294,12 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             return UISwipeActionsConfiguration(actions: [favoriteAction])
             
         }
+        
+        //고정되지 않은 섹션
         else if indexPath.section == 2{
             let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
                 completionHaldler(true)
+                //5개까지 가능
                 if self.favoriteTasks.count >= 5{
                     self.view.makeToast("고정된 메모는 5개까지 가능합니다.", duration: 3.0, position: .top)
                     return
@@ -266,18 +322,22 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 
+//헤더로 사용할 셀
 class HeaderTableViewCell: UITableViewCell{
     
     @IBOutlet weak var headerLabel: UILabel!
     
 }
 
+//검색셀
 class SearchTableViewCell: UITableViewCell{
     
     @IBOutlet weak var memoSearchBar: UISearchBar!
     
 }
 
+
+//메모 미리보기 셀
 class MemoTableViewCell: UITableViewCell{
     @IBOutlet weak var memoTitleLabel: UILabel!
     
