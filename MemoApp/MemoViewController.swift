@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Toast
 
 class MemoViewController: UIViewController {
     let localRealm = try! Realm()
@@ -243,8 +244,8 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         else if indexPath.section == 2{
             let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
                 completionHaldler(true)
-                if self.favoriteTasks.count > 5{
-                    print("고정된 메모는 5개 까지 가능합니다.")
+                if self.favoriteTasks.count >= 5{
+                    self.view.makeToast("고정된 메모는 5개까지 가능합니다.", duration: 3.0, position: .top)
                     return
                 }
                 let taskUpdate = self.tasks[indexPath.row]
