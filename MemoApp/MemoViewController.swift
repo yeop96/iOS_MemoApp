@@ -65,10 +65,39 @@ class MemoViewController: UIViewController {
         
     }
     
+    
     // 메모 버튼 클릭시 메모 작성 화면으로
     @objc func writeMemoButtonClicked(){
         let storyboard = UIStoryboard(name: "WriteMemo", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "WriteMemoViewController") as! WriteMemoViewController
+        
+        //뒤로 왔을 시 저장
+        vc.backActionHandler = {
+            var title = ""
+            var content = ""
+            //공백일 경우
+            if vc.memoTextView.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                return
+            }
+            // 한줄일 경우
+            else if !vc.memoTextView.text!.contains("\n"){
+                title = vc.memoTextView.text!
+            }
+            // 개행 있을 경우
+            else{
+                title = String(vc.memoTextView.text!.split(separator: "\n").first!) //첫번째 줄만
+                content = String(vc.memoTextView.text!.dropFirst(title.count+1)) // 제목 자르고 넣음
+            }
+            
+            let task = MemoList(memoTitle: title, memoContent: content, memoAll: vc.memoTextView.text, favorite: false, regDate: Date())
+                        
+            try! self.localRealm.write {
+                self.localRealm.add(task)
+                self.tableView.reloadData()
+            }
+        }
+        
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -251,10 +280,60 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         return indexPath.section == 0 ? false : true
     }
     
+    //셀 선택시
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "WriteMemo", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "WriteMemoViewController") as! WriteMemoViewController
+        
+        let taskUpdate = indexPath.section == 1 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
+        
+        vc.memoContentAll = taskUpdate.memoAll
+        
+        //뒤로 왔을 시 수정
+        vc.backActionHandler = {
+            var title = ""
+            var content = ""
+            
+            //공백일 경우
+            if vc.memoTextView.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                try! self.localRealm.write{
+                    self.localRealm.delete(taskUpdate)
+                    tableView.reloadData()
+                }
+                return
+            }
+            //수정했는데 같을 경우
+            else if taskUpdate.memoAll == vc.memoTextView.text{
+                return
+            }
+            // 한줄일 경우
+            else if !vc.memoTextView.text!.contains("\n"){
+                title = vc.memoTextView.text!
+            }
+            // 개행 있을 경우
+            else{
+                title = String(vc.memoTextView.text!.split(separator: "\n").first!) //첫번째 줄만
+                content = String(vc.memoTextView.text!.dropFirst(title.count+1)) // 제목 자르고 넣음
+            }
+                        
+            try! self.localRealm.write {
+                taskUpdate.memoTitle = title
+                taskUpdate.memoContent = content
+                taskUpdate.memoAll = vc.memoTextView.text
+                taskUpdate.regDate = Date()
+            
+                self.tableView.reloadData()
+            }
+        }
+        
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     //삭제 스와이프
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        let row = localRealm.objects(MemoList.self)[indexPath.row]
+        let row = indexPath.section == 1 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
         
         let alert = UIAlertController(title: row.memoTitle, message: "메모를 삭제해도 되나요?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "예", style: .default){ (action) in
