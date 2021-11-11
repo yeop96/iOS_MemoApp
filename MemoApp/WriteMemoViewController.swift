@@ -65,7 +65,7 @@ class WriteMemoViewController: UIViewController {
         // 개행 있을 경우
         else{
             title = String(memoTextView.text!.split(separator: "\n").first!) //첫번째 줄만
-            content = memoTextView.text // 제목 자르고 넣어야함 추후 수정
+            content = String(memoTextView.text!.dropFirst(title.count+1)) // 제목 자르고 넣어야함 추후 수정
         }
         
         let task = MemoList(memoTitle: title, memoContent: content, memoAll: memoTextView.text, favorite: false, regDate: Date())

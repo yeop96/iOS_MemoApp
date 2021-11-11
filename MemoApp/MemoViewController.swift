@@ -11,6 +11,7 @@ import RealmSwift
 class MemoViewController: UIViewController {
     let localRealm = try! Realm()
     var tasks: Results<MemoList>!
+    var favoriteTasks: Results<MemoList>!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,7 +27,9 @@ class MemoViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         //memo 데이터 가져오기
-        tasks = localRealm.objects(MemoList.self).sorted(byKeyPath: "regDate", ascending: false) // 최근 등록일 순
+        favoriteTasks = localRealm.objects(MemoList.self).filter("favorite == true").sorted(byKeyPath: "regDate", ascending: false)
+        tasks = localRealm.objects(MemoList.self).filter("favorite == false").sorted(byKeyPath: "regDate", ascending: false) // 최근 등록일 순
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +85,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             return 1
         }
         else if section == 1{
-            return 5
+            return favoriteTasks.count
         }
         else{
             return tasks.count
@@ -91,7 +94,10 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
-            return " 개의 메모"
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let memoCount = numberFormatter.string(for: localRealm.objects(MemoList.self).count)!
+            return "\(memoCount)개의 메모"
         }
         else if section == 1{
             return "고정된 메모"
@@ -126,6 +132,8 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         return cell.contentView
     }
     
+    
+    //셀 row 구성
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
@@ -136,16 +144,27 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         }
         else if indexPath.section == 1{
-            //let row = tasks[indexPath.row]
-            
+            let row = favoriteTasks[indexPath.row]
+
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell") as? MemoTableViewCell else{
                             return UITableViewCell()
                         }
+            let format = DateFormatter()
+            format.dateFormat = "yyyy. MM. dd. a hh:mm"
+            format.locale = Locale(identifier:"ko_KR")
+            let regDate = format.string(from: row.regDate)
+
+            cell.memoTitleLabel.text = row.memoTitle
+            cell.memoDateLabel.text = regDate
+            cell.memoContentLabel.text = row.memoContent
             
-            if indexPath.row == 0{
+            if favoriteTasks.count == 1{
+                cell.memoView.layer.cornerRadius = 15
+            }
+            else if indexPath.row == 0{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner ])
             }
-            else if indexPath.row == 4{
+            else if indexPath.row == favoriteTasks.count - 1{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner ])
             }
             
@@ -160,17 +179,21 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
                         }
             
             let format = DateFormatter()
-            format.dateFormat = "yyyy. MM. dd."
+            format.dateFormat = "yyyy. MM. dd. a hh:mm"
+            format.locale = Locale(identifier:"ko_KR")
             let regDate = format.string(from: row.regDate)
 
             cell.memoTitleLabel.text = row.memoTitle
             cell.memoDateLabel.text = regDate
             cell.memoContentLabel.text = row.memoContent
             
-            if indexPath.row == 0{
+            if tasks.count == 1{
+                cell.memoView.layer.cornerRadius = 15
+            }
+            else if indexPath.row == 0{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner ])
             }
-            else if indexPath.row == 19{
+            else if indexPath.row == tasks.count - 1{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner ])
             }
             
@@ -189,13 +212,54 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-        
+    
+    //삭제 스와이프
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let row = tasks[indexPath.row]
+        let row = localRealm.objects(MemoList.self)[indexPath.row]
         try! localRealm.write{
             localRealm.delete(row)
             tableView.reloadData()
         }
+    }
+    
+    //즐겨찾기
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if indexPath.section == 1{
+            let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
+                completionHaldler(true)
+                let taskUpdate = self.favoriteTasks[indexPath.row]
+                try! self.localRealm.write{
+                    taskUpdate.favorite = !taskUpdate.favorite
+                    tableView.reloadData()
+                }
+            })
+            favoriteAction.backgroundColor = .systemOrange
+            favoriteAction.image = UIImage(systemName: "pin.slash.fill")
+            
+            return UISwipeActionsConfiguration(actions: [favoriteAction])
+            
+        }
+        else if indexPath.section == 2{
+            let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
+                completionHaldler(true)
+                if self.favoriteTasks.count > 5{
+                    print("고정된 메모는 5개 까지 가능합니다.")
+                    return
+                }
+                let taskUpdate = self.tasks[indexPath.row]
+                try! self.localRealm.write{
+                    taskUpdate.favorite = !taskUpdate.favorite
+                    tableView.reloadData()
+                }
+            })
+            favoriteAction.backgroundColor = .systemOrange
+            favoriteAction.image = UIImage(systemName: "pin.fill")
+            
+            return UISwipeActionsConfiguration(actions: [favoriteAction])
+        }
+        
+        return nil
     }
     
 }
