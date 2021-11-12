@@ -60,30 +60,15 @@ class WriteMemoViewController: UIViewController, UITextViewDelegate {
 //        let vc = UIActivityViewController(activityItems: [fileURL], applicationActivities: [])
 //
 //        self.present(vc, animated: true, completion: nil)
+        let alert = UIAlertController(title: "공유", message: "공유는 추후 업데이트 예정입니다.", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "확인", style: .default){ (action) in
+            return
+        }
+        alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func saveButtonClicked(){
-//        var title = ""
-//        var content = ""
-//        //공백일 경우
-//        if memoTextView.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
-//            return
-//        }
-//        // 한줄일 경우
-//        else if !memoTextView.text!.contains("\n"){
-//            title = memoTextView.text!
-//        }
-//        // 개행 있을 경우
-//        else{
-//            title = String(memoTextView.text!.split(separator: "\n").first!) //첫번째 줄만
-//            content = String(memoTextView.text!.dropFirst(title.count+1)) // 제목 자르고 넣음
-//        }
-//        
-//        let task = MemoList(memoTitle: title, memoContent: content, memoAll: memoTextView.text, favorite: false, regDate: Date())
-//                    
-//        try! localRealm.write {
-//            localRealm.add(task)
-//        }
         
         self.navigationController?.popViewController(animated: true)
     }
