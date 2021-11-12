@@ -15,6 +15,7 @@ class MemoViewController: UIViewController {
     var favoriteTasks: Results<MemoList>!
     var allTasks: Results<MemoList>!
     var searchController:  UISearchController!
+    var searchText = ""
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -30,6 +31,8 @@ class MemoViewController: UIViewController {
         searchController.searchBar.tintColor = .systemOrange
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
         navigationItem.searchController = searchController
     
         let numberFormatter = NumberFormatter()
@@ -125,6 +128,14 @@ class MemoViewController: UIViewController {
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
 
 }
 
@@ -132,6 +143,7 @@ class MemoViewController: UIViewController {
 extension MemoViewController: UISearchBarDelegate, UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         allTasks = localRealm.objects(MemoList.self).filter("memoAll CONTAINS '\(searchController.searchBar.text!)'").sorted(byKeyPath: "regDate", ascending: false)
+        searchText  = searchController.searchBar.text!
         tableView.reloadData()
     }
     
@@ -160,12 +172,12 @@ extension MemoViewController: UISearchBarDelegate, UISearchResultsUpdating{
 extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return searchController.isActive ? 1 : 2
+        return isFiltering() ? 1 : 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
-            return searchController.isActive ? allTasks.count : favoriteTasks.count
+            return isFiltering() ? allTasks.count : favoriteTasks.count
         }
         else{
             return tasks.count
@@ -175,7 +187,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     //헤더 제목
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
        if section == 0{
-           return searchController.isActive ? "\(allTasks.count)개 찾음" : "고정된 메모"
+           return isFiltering() ? "\(allTasks.count)개 찾음" : "고정된 메모"
         }
         else if section == 1{
             return "메모"
@@ -186,8 +198,8 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     //헤더뷰 설정
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderTableViewCell") as? HeaderTableViewCell else{
-                        return UITableViewCell()
-                    }
+            return UITableViewCell()
+        }
         cell.headerLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
         
         cell.headerLabel.font = UIFont.boldSystemFont(ofSize: 23)
@@ -200,11 +212,11 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
-            let row = searchController.isActive ? allTasks[indexPath.row] : favoriteTasks[indexPath.row]
+            let row = isFiltering() ? allTasks[indexPath.row] : favoriteTasks[indexPath.row]
 
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell") as? MemoTableViewCell else{
-                            return UITableViewCell()
-                        }
+                return UITableViewCell()
+            }
             let format = DateFormatter()
             format.dateFormat = "yyyy. MM. dd. a hh:mm"
             
@@ -235,7 +247,14 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             cell.memoTitleLabel.text = row.memoTitle
             cell.memoDateLabel.text = regDate
             cell.memoContentLabel.text = row.memoContent
-            let cnt = searchController.isActive ? allTasks.count : favoriteTasks.count
+            if isFiltering() && !searchBarIsEmpty() {
+                cell.memoTitleLabel.highlight(searchText: searchText, color: .systemOrange)
+                cell.memoContentLabel.highlight(searchText: searchText, color: .systemOrange)
+            } else if !isFiltering() {
+                cell.memoTitleLabel.nohighlight(color: .label)
+                cell.memoContentLabel.nohighlight(color: .lightGray)
+            }
+            let cnt = isFiltering() ? allTasks.count : favoriteTasks.count
             if cnt == 1{
                 cell.memoView.layer.cornerRadius = 15
             }
@@ -253,8 +272,8 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             let row = tasks[indexPath.row]
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell") as? MemoTableViewCell else{
-                            return UITableViewCell()
-                        }
+                return UITableViewCell()
+            }
             
             let format = DateFormatter()
             format.dateFormat = "yyyy. MM. dd. a hh:mm"
@@ -311,17 +330,17 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         return 37
     }
     
-    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     //셀 선택시
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchController.dismiss(animated: false)
-        dismiss(animated: true)
         let storyboard = UIStoryboard(name: "WriteMemo", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "WriteMemoViewController") as! WriteMemoViewController
         
-        var taskUpdate = indexPath.section == 0 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
-        if searchController.isActive{
-            taskUpdate = allTasks[indexPath.row]
+        var taskUpdate = tasks[indexPath.row]
+        if indexPath.section == 0{
+            taskUpdate = isFiltering() ? allTasks[indexPath.row] : favoriteTasks[indexPath.row]
         }
         
         vc.memoContentAll = taskUpdate.memoAll
@@ -371,7 +390,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         var row = indexPath.section == 0 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
-        if searchController.isActive{
+        if isFiltering(){
             row = allTasks[indexPath.row]
         }
         
