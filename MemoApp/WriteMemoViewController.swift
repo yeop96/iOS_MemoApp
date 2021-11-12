@@ -22,6 +22,7 @@ class WriteMemoViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         memoTextView.delegate = self
         memoTextView.text = memoContentAll
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
         var items: [UIBarButtonItem] = []
 

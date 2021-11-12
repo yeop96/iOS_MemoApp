@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-ii-WGf">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-ii-WGf">
                                 <rect key="frame" x="20" y="88" width="374" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" systemColor="systemBackgroundColor"/>
@@ -47,33 +47,8 @@
                                             <outlet property="headerLabel" destination="MSK-h9-Pj7" id="1NX-xw-2Ic"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchTableViewCell" rowHeight="110" id="HU3-XV-WMU" customClass="SearchTableViewCell" customModule="MemoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="117.5" width="374" height="110"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HU3-XV-WMU" id="gVs-mN-7e0">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="110"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <searchBar contentMode="redraw" placeholder="검색" translatesAutoresizingMaskIntoConstraints="NO" id="jCs-hR-iVZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="110"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </searchBar>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="jCs-hR-iVZ" secondAttribute="bottom" id="LAp-PA-yM0"/>
-                                                <constraint firstAttribute="trailing" secondItem="jCs-hR-iVZ" secondAttribute="trailing" id="XmR-Ja-fqb"/>
-                                                <constraint firstItem="jCs-hR-iVZ" firstAttribute="leading" secondItem="gVs-mN-7e0" secondAttribute="leading" id="em3-7Y-Zea"/>
-                                                <constraint firstItem="jCs-hR-iVZ" firstAttribute="top" secondItem="gVs-mN-7e0" secondAttribute="top" id="ipe-zZ-kIV"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="23" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="memoSearchBar" destination="jCs-hR-iVZ" id="xun-oH-R1d"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemoTableViewCell" rowHeight="117" id="f6O-M8-ikf" customClass="MemoTableViewCell" customModule="MemoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="227.5" width="374" height="117"/>
+                                        <rect key="frame" x="0.0" y="117.5" width="374" height="117"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f6O-M8-ikf" id="KlT-dR-MFx">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="117"/>

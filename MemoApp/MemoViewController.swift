@@ -13,6 +13,9 @@ class MemoViewController: UIViewController {
     let localRealm = try! Realm()
     var tasks: Results<MemoList>!
     var favoriteTasks: Results<MemoList>!
+    var allTasks: Results<MemoList>!
+    var searchController:  UISearchController!
+    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,6 +23,21 @@ class MemoViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "검색"
+        searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
+        searchController.searchBar.tintColor = .systemOrange
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+    
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let memoCount = numberFormatter.string(for: localRealm.objects(MemoList.self).count)!
+        navigationItem.title = "\(memoCount)개의 메모"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.hidesSearchBarWhenScrolling = false // 스크롤 할 때 서치부분은 남겨두기
         
         toolbarSetting()
         
@@ -30,10 +48,17 @@ class MemoViewController: UIViewController {
         //memo 데이터 가져오기
         favoriteTasks = localRealm.objects(MemoList.self).filter("favorite == true").sorted(byKeyPath: "regDate", ascending: false)
         tasks = localRealm.objects(MemoList.self).filter("favorite == false").sorted(byKeyPath: "regDate", ascending: false) // 최근 등록일 순
+        allTasks = localRealm.objects(MemoList.self).sorted(byKeyPath: "regDate", ascending: false)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let memoCount = numberFormatter.string(for: localRealm.objects(MemoList.self).count)!
+        navigationItem.title = "\(memoCount)개의 메모"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         tableView.reloadData()
     }
     
@@ -104,20 +129,43 @@ class MemoViewController: UIViewController {
 }
 
 
-
+extension MemoViewController: UISearchBarDelegate, UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        allTasks = localRealm.objects(MemoList.self).filter("memoAll CONTAINS '\(searchController.searchBar.text!)'").sorted(byKeyPath: "regDate", ascending: false)
+        tableView.reloadData()
+    }
+    
+    //검색 버튼(키보드 리턴키)을 눌렀을 때 실행
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    //취소 버튼 눌렀을 때 실행
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    //서치바에 커서 깜빡이기 시작할 때
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        updateSearchResults(for: searchController)
+    }
+    
+}
 
 extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return searchController.isActive ? 1 : 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
-            return 1
-        }
-        else if section == 1{
-            return favoriteTasks.count
+            return searchController.isActive ? allTasks.count : favoriteTasks.count
         }
         else{
             return tasks.count
@@ -126,16 +174,10 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     
     //헤더 제목
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            let memoCount = numberFormatter.string(for: localRealm.objects(MemoList.self).count)!
-            return "\(memoCount)개의 메모"
+       if section == 0{
+           return searchController.isActive ? "\(allTasks.count)개 찾음" : "고정된 메모"
         }
         else if section == 1{
-            return "고정된 메모"
-        }
-        else if section == 2{
             return "메모"
         }
         return nil
@@ -148,7 +190,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
                     }
         cell.headerLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
         
-        cell.headerLabel.font = section == 0 ?  UIFont.boldSystemFont(ofSize: 30) : UIFont.boldSystemFont(ofSize: 23)
+        cell.headerLabel.font = UIFont.boldSystemFont(ofSize: 23)
 
         return cell.contentView
     }
@@ -158,14 +200,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell else{
-                            return UITableViewCell()
-                        }
-            
-            return cell
-        }
-        else if indexPath.section == 1{
-            let row = favoriteTasks[indexPath.row]
+            let row = searchController.isActive ? allTasks[indexPath.row] : favoriteTasks[indexPath.row]
 
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell") as? MemoTableViewCell else{
                             return UITableViewCell()
@@ -200,14 +235,14 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             cell.memoTitleLabel.text = row.memoTitle
             cell.memoDateLabel.text = regDate
             cell.memoContentLabel.text = row.memoContent
-            
-            if favoriteTasks.count == 1{
+            let cnt = searchController.isActive ? allTasks.count : favoriteTasks.count
+            if cnt == 1{
                 cell.memoView.layer.cornerRadius = 15
             }
             else if indexPath.row == 0{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner ])
             }
-            else if indexPath.row == favoriteTasks.count - 1{
+            else if indexPath.row == cnt - 1{
                 cell.memoView.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner ])
             }
             
@@ -269,23 +304,25 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     
     //셀 높이
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 58 : 67
+        return 67
     }
     //헤더 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 47 : 37
+        return 37
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0 ? false : true
-    }
     
     //셀 선택시
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchController.dismiss(animated: false)
+        dismiss(animated: true)
         let storyboard = UIStoryboard(name: "WriteMemo", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "WriteMemoViewController") as! WriteMemoViewController
         
-        let taskUpdate = indexPath.section == 1 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
+        var taskUpdate = indexPath.section == 0 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
+        if searchController.isActive{
+            taskUpdate = allTasks[indexPath.row]
+        }
         
         vc.memoContentAll = taskUpdate.memoAll
         
@@ -333,7 +370,10 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     //삭제 스와이프
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        let row = indexPath.section == 1 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
+        var row = indexPath.section == 0 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
+        if searchController.isActive{
+            row = allTasks[indexPath.row]
+        }
         
         let alert = UIAlertController(title: row.memoTitle, message: "메모를 삭제해도 되나요?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "예", style: .default){ (action) in
@@ -357,8 +397,9 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     //즐겨찾기
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        
         //고정되어있는 섹션
-        if indexPath.section == 1{
+        if indexPath.section == 0 && !searchController.isActive{
             let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
                 completionHaldler(true)
                 let taskUpdate = self.favoriteTasks[indexPath.row]
@@ -375,7 +416,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         //고정되지 않은 섹션
-        else if indexPath.section == 2{
+        else if indexPath.section == 1{
             let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
                 completionHaldler(true)
                 //5개까지 가능
@@ -394,8 +435,35 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             
             return UISwipeActionsConfiguration(actions: [favoriteAction])
         }
+        else{
+            let row = allTasks[indexPath.row]
+            let favoriteAction = UIContextualAction(style: .normal, title: "", handler: { action, view, completionHaldler in
+                completionHaldler(true)
+                
+                if row.favorite{
+                    try! self.localRealm.write{
+                        row.favorite = !row.favorite
+                        tableView.reloadData()
+                    }
+                }
+                else{
+                    if self.favoriteTasks.count >= 5{
+                        self.view.makeToast("고정된 메모는 5개까지 가능합니다.", duration: 3.0, position: .top)
+                        return
+                    }
+                    try! self.localRealm.write{
+                        row.favorite = !row.favorite
+                        tableView.reloadData()
+                    }
+                }
+                
+            })
+            favoriteAction.backgroundColor = .systemOrange
+            favoriteAction.image = row.favorite ? UIImage(systemName: "pin.slash.fill") : UIImage(systemName: "pin.fill")
+            
+            return UISwipeActionsConfiguration(actions: [favoriteAction])
+        }
         
-        return nil
     }
     
 }
@@ -408,12 +476,6 @@ class HeaderTableViewCell: UITableViewCell{
     
 }
 
-//검색셀
-class SearchTableViewCell: UITableViewCell{
-    
-    @IBOutlet weak var memoSearchBar: UISearchBar!
-    
-}
 
 
 //메모 미리보기 셀
