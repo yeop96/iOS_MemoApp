@@ -15,6 +15,8 @@
 		270705F9273C2E9D00FFD844 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270705F8273C2E9D00FFD844 /* MemoModel.swift */; };
 		270705FC273D07A000FFD844 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 270705FB273D07A000FFD844 /* Toast */; };
 		27070602273F183200FFD844 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27070601273F183200FFD844 /* UILabel+Extension.swift */; };
+		27070604273F1D0A00FFD844 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27070603273F1D0A00FFD844 /* Onboarding.storyboard */; };
+		27070606273F1D3200FFD844 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27070605273F1D3200FFD844 /* OnBoardingViewController.swift */; };
 		279D7CB627396CB0005CA20F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CB527396CB0005CA20F /* AppDelegate.swift */; };
 		279D7CB827396CB0005CA20F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CB727396CB0005CA20F /* SceneDelegate.swift */; };
 		279D7CBA27396CB0005CA20F /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D7CB927396CB0005CA20F /* MemoViewController.swift */; };
@@ -31,6 +33,8 @@
 		270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMemoViewController.swift; sourceTree = "<group>"; };
 		270705F8273C2E9D00FFD844 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		27070601273F183200FFD844 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		27070603273F1D0A00FFD844 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		27070605273F1D3200FFD844 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		279D7CB227396CB0005CA20F /* MemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		279D7CB527396CB0005CA20F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		279D7CB727396CB0005CA20F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */,
 				27070601273F183200FFD844 /* UILabel+Extension.swift */,
 				270705F8273C2E9D00FFD844 /* MemoModel.swift */,
+				27070603273F1D0A00FFD844 /* Onboarding.storyboard */,
+				27070605273F1D3200FFD844 /* OnBoardingViewController.swift */,
 				279D7CBE27396CB4005CA20F /* Assets.xcassets */,
 				279D7CC027396CB4005CA20F /* LaunchScreen.storyboard */,
 				279D7CC327396CB4005CA20F /* Info.plist */,
@@ -168,6 +174,7 @@
 				279D7CC227396CB4005CA20F /* LaunchScreen.storyboard in Resources */,
 				279D7CBF27396CB4005CA20F /* Assets.xcassets in Resources */,
 				279D7CCA27397ED0005CA20F /* memoBackImage.png in Resources */,
+				27070604273F1D0A00FFD844 /* Onboarding.storyboard in Resources */,
 				270705ED273C1A9500FFD844 /* WriteMemo.storyboard in Resources */,
 				279D7CBD27396CB0005CA20F /* Memo.storyboard in Resources */,
 			);
@@ -186,6 +193,7 @@
 				279D7CB827396CB0005CA20F /* SceneDelegate.swift in Sources */,
 				279D7CCE273ACDBE005CA20F /* UIView+Extension.swift in Sources */,
 				270705F9273C2E9D00FFD844 /* MemoModel.swift in Sources */,
+				27070606273F1D3200FFD844 /* OnBoardingViewController.swift in Sources */,
 				270705EF273C1AB400FFD844 /* WriteMemoViewController.swift in Sources */,
 				279D7CCC273AC7D4005CA20F /* CALayer+Extension.swift in Sources */,
 			);

@@ -25,6 +25,8 @@ class MemoViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        onBoarding()
+        
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "검색"
         searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
@@ -135,6 +137,15 @@ class MemoViewController: UIViewController {
     
     func isFiltering() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    func onBoarding(){
+        if UserDefaults.standard.object(forKey: "isFirstTime") == nil {
+            let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "OnBoardingViewController") as! OnBoardingViewController
+            vc.modalPresentationStyle = .overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+        }
     }
 
 }
