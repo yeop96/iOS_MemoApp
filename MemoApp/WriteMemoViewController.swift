@@ -53,25 +53,22 @@ class WriteMemoViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func shareButtonClicked(){
-        print(#function)
+        saveTextFile()
+        presentActivityViewController()
         //text 파일을 저장 하고 뿌리기
-        //파일 경로 가져오기
-//        let fileName = (documentDirectoryPath()! as NSString).appendingPathComponent("MemoAppText.txt")
-//        let fileURL = URL(fileURLWithPath: fileName)
-//        let vc = UIActivityViewController(activityItems: [fileURL], applicationActivities: [])
-//
-//        self.present(vc, animated: true, completion: nil)
-        let alert = UIAlertController(title: "공유", message: "공유는 추후 업데이트 예정입니다.", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "확인", style: .default){ (action) in
-            return
-        }
-        alert.addAction(yesAction)
-        present(alert, animated: true, completion: nil)
     }
     
     @objc func saveButtonClicked(){
-        
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func saveTextFile() {
+        let filename = getDocumentsDirectory().appendingPathComponent("memo.txt")
+        do {
+            try memoTextView.text!.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            print("error")
+        }
     }
     
     //도큐먼트 폴더 위치
@@ -79,13 +76,22 @@ class WriteMemoViewController: UIViewController, UITextViewDelegate {
         let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
         let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
         let path = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-        
         if let directoryPath = path.first{
             return directoryPath
         }
         else{
             return nil
         }
+    }
+    func presentActivityViewController() {
+        let fileName = (documentDirectoryPath()! as NSString).appendingPathComponent("memo.txt")
+        let fileURL = URL(fileURLWithPath: fileName)
+        let vc = UIActivityViewController(activityItems: [fileURL], applicationActivities: [])
+        self.present(vc, animated: true, completion: nil)
+    }
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 
 
