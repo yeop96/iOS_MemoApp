@@ -124,6 +124,7 @@ class MemoViewController: UIViewController {
             try! self.localRealm.write {
                 self.localRealm.add(task)
                 self.tableView.reloadData()
+                self.viewWillAppear(false) // 타이틀 수정하기 위해서
             }
         }
         
@@ -369,8 +370,9 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             //공백일 경우
             if vc.memoTextView.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
                 try! self.localRealm.write{
-                    self.localRealm.delete(taskUpdate)
+                    self.localRealm.delete(taskUpdate) // 지우기
                     tableView.reloadData()
+                    self.viewWillAppear(false)// 제목 수정하기위해
                 }
                 return
             }
@@ -416,6 +418,7 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             try! self.localRealm.write{
                 self.localRealm.delete(row)
                 tableView.reloadData()
+                self.viewWillAppear(false)// 위에 타이틀 수정하기 위해서
             }
             
             return
