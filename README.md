@@ -19,15 +19,15 @@
 
 ------
 
-- 메모 리스트 메인 화면
+- 메모 리스트 메인 화면 및 검색
 
- <img src="https://user-images.githubusercontent.com/48886490/141652130-347ed633-9f04-4eb8-8841-aa574cfc6d36.png" width="200" height="400">
+ <img src="https://user-images.githubusercontent.com/48886490/141652130-347ed633-9f04-4eb8-8841-aa574cfc6d36.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/48886490/141652151-cb01068d-fef4-4066-937d-5d2f2aabe468.png" width="200" height="400">
  
 ------
 
-- 메모 작성 및 수정
+- 메모 작성(수정) 및 공유
 
- <img src="https://user-images.githubusercontent.com/48886490/141652142-0e47d36f-db65-4b63-a653-c19e985bab2e.png" width="200" height="400">
+ <img src="https://user-images.githubusercontent.com/48886490/141652142-0e47d36f-db65-4b63-a653-c19e985bab2e.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/48886490/141652146-10d4d88a-0f03-4085-addb-92eabae2e129.png" width="200" height="400">
  
 ------
 
@@ -37,28 +37,16 @@
 
 ------
 
-- 메모 검색
-
- <img src="https://user-images.githubusercontent.com/48886490/141652151-cb01068d-fef4-4066-937d-5d2f2aabe468.png" width="200" height="400">
-
-------
-
-- txt 공유
-
- <img src="https://user-images.githubusercontent.com/48886490/141652146-10d4d88a-0f03-4085-addb-92eabae2e129.png" width="200" height="400">
-
-------
-
 
 #### 기기별 테스트
 
 - iPhone 8
 
-<img width="20%" src="https://user-images.githubusercontent.com/48886490/141651581-7267fda5-13f2-47e0-a9f2-b5f792ff2da1.gif"/>
+<img width="30%" src="https://user-images.githubusercontent.com/48886490/141651581-7267fda5-13f2-47e0-a9f2-b5f792ff2da1.gif"/>
 
 - iPhone 13 Pro Max
 
-<img width="20%" src="https://user-images.githubusercontent.com/48886490/141651847-481a9488-253c-4e26-b4ab-0aa07d8c3abf.gif"/>
+<img width="30%" src="https://user-images.githubusercontent.com/48886490/141653644-53411ff2-2299-4605-bd9f-9318f3f9614c.gif"/>
 
 ------
 
