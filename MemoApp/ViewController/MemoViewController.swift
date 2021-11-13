@@ -317,6 +317,11 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
             cell.memoDateLabel.text = regDate
             cell.memoContentLabel.text = row.memoContent
             
+            if !isFiltering() {
+                cell.memoTitleLabel.nohighlight(color: .label)
+                cell.memoContentLabel.nohighlight(color: .lightGray)
+            }
+            
             if tasks.count == 1{
                 cell.memoView.layer.cornerRadius = 15
             }
@@ -400,9 +405,9 @@ extension MemoViewController: UITableViewDelegate, UITableViewDataSource{
     //삭제 스와이프
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        var row = indexPath.section == 0 ? favoriteTasks[indexPath.row] : tasks[indexPath.row]
-        if isFiltering(){
-            row = allTasks[indexPath.row]
+        var row = tasks[indexPath.row]
+        if indexPath.section == 0{
+            row = isFiltering() ? allTasks[indexPath.row] : favoriteTasks[indexPath.row]
         }
         
         let alert = UIAlertController(title: row.memoTitle, message: "메모를 삭제해도 되나요?", preferredStyle: .alert)

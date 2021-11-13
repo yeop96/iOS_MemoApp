@@ -82,24 +82,56 @@
 		279D7CB427396CB0005CA20F /* MemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				27EA3DBB274002F700974802 /* Model */,
+				27EA3DBA274002DD00974802 /* ViewController */,
+				27EA3DB92740029C00974802 /* StroryBoard */,
+				27EA3DB82740028500974802 /* Extension */,
 				279D7CC927397ED0005CA20F /* memoBackImage.png */,
 				279D7CB527396CB0005CA20F /* AppDelegate.swift */,
 				279D7CB727396CB0005CA20F /* SceneDelegate.swift */,
-				279D7CBB27396CB0005CA20F /* Memo.storyboard */,
-				279D7CB927396CB0005CA20F /* MemoViewController.swift */,
-				270705EC273C1A9500FFD844 /* WriteMemo.storyboard */,
-				270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */,
-				27070603273F1D0A00FFD844 /* Onboarding.storyboard */,
-				27070605273F1D3200FFD844 /* OnBoardingViewController.swift */,
-				279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */,
-				279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */,
-				27070601273F183200FFD844 /* UILabel+Extension.swift */,
-				270705F8273C2E9D00FFD844 /* MemoModel.swift */,
 				279D7CBE27396CB4005CA20F /* Assets.xcassets */,
-				279D7CC027396CB4005CA20F /* LaunchScreen.storyboard */,
 				279D7CC327396CB4005CA20F /* Info.plist */,
 			);
 			path = MemoApp;
+			sourceTree = "<group>";
+		};
+		27EA3DB82740028500974802 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				279D7CCB273AC7D4005CA20F /* CALayer+Extension.swift */,
+				279D7CCD273ACDBE005CA20F /* UIView+Extension.swift */,
+				27070601273F183200FFD844 /* UILabel+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		27EA3DB92740029C00974802 /* StroryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				279D7CBB27396CB0005CA20F /* Memo.storyboard */,
+				270705EC273C1A9500FFD844 /* WriteMemo.storyboard */,
+				27070603273F1D0A00FFD844 /* Onboarding.storyboard */,
+				279D7CC027396CB4005CA20F /* LaunchScreen.storyboard */,
+			);
+			path = StroryBoard;
+			sourceTree = "<group>";
+		};
+		27EA3DBA274002DD00974802 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				279D7CB927396CB0005CA20F /* MemoViewController.swift */,
+				270705EE273C1AB400FFD844 /* WriteMemoViewController.swift */,
+				27070605273F1D3200FFD844 /* OnBoardingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		27EA3DBB274002F700974802 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				270705F8273C2E9D00FFD844 /* MemoModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
