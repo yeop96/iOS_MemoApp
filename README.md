@@ -42,11 +42,11 @@
 
 - iPhone 8
 
-<img width="30%" src="https://user-images.githubusercontent.com/48886490/141651581-7267fda5-13f2-47e0-a9f2-b5f792ff2da1.gif"/>
+<img width="25%" src="https://user-images.githubusercontent.com/48886490/141651581-7267fda5-13f2-47e0-a9f2-b5f792ff2da1.gif"/>
 
 - iPhone 13 Pro Max
 
-<img width="30%" src="https://user-images.githubusercontent.com/48886490/141653644-53411ff2-2299-4605-bd9f-9318f3f9614c.gif"/>
+<img width="25%" src="https://user-images.githubusercontent.com/48886490/141653644-53411ff2-2299-4605-bd9f-9318f3f9614c.gif"/>
 
 ------
 
